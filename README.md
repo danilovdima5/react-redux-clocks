@@ -1,70 +1,23 @@
-# Getting Started with Create React App
+    Clocks - простое веб-приложение на стэке React-Redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+    Описание приложения и особенности:
 
-## Available Scripts
+1) Когда человек запускает приложение, он видит цифровые и стрелочные часы, которые показывают время в его часовом поясе.
+2) Нажав кнопку "Configure clocks" в верхней части приложения, пользователь откроет "Соnfiguration window", где сможет настроить какие часовые пояса будут показаны на главном экране.
+3) Под часами находится выпадающий список, с помощью которого пользователь может менять часовой пояс который представлен на данных часах. Невозможно настроить выставить несколько одинаковых часовых поясов одновременно.
+4) Приложение работает мгновенно. Никаких загрузок нет.
+5) Приложение отлично работает на любых устройствах.
 
-In the project directory, you can run:
+    Как работает данное приложение:
+  
+1) Когда пользователь заходит в приложение, его часовой пояс определяется разбиением стандартного JavaScript объекта Date(), например: "Fri Sep 24 2021 03:30:06 GMT+0700 (Krasnoyarsk Standard Time)", форматируется в Krasnoyarsk. Далее Krasnoyarsk попадает в хранилище Redux, и ему присваивается статус активного. Также на главном экране создаётся div для часов данного часового пояса и выпадающий список в этом div.
+2) Хранилище Redux представляет собой обычный массив, который подключён к одному из компонентов React и имеет три функции, для удаления, добавления и замены города в массив. Также данное хранилище подключено к функции generateClocks и каждое мгновение обрабатывается функцией forEach.
+3) Функция forEach работает с функцией generateClocks и передаёт в неё название города из хранилища и его индекс. Также generateClocks прнимает в себя список, который состоит из объектов, которые несут название часового пояса и его отклонение от UTC.
+4) Далее generateClocks расчитывает смещение для принимаемого города, отрисовывает оба типа часов и помещает их на их место. Стрелочные часы рисуются с помощью canvas, так как это гибко и другой возможности сделать это я не нашёл.
+5) Если пользователь хочет добавить другой часовой пояс, то, нажав на соответствующую кнопку, он будет отправлен в хранилище Redux, ему будет присвоен статус активного и на главном экране появится всё необходимое для данного часового пояса.
+6) Если же пользователь нажмёт на кнопку активного часового пояса, он будет удалён из хранилища и удалится с главного экрана.
 
-### `yarn start`
+    Два факта о процессе разработки:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1) Вначале была предпринята попытка использовать какое-либо API для часов, но они не закончились успехом, так как, во-первых: я не нашёл ничего пододящего под задание; во-вторых - тогда приложение было бы зависимо от интернет-соединения
+2) Часовые пояса при подключении к приложению переводятся с кириллицы на латиницу так как объект Date() возвращает нам часовой пояс на латинице.
